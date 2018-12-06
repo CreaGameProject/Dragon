@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    int hogehoge = 0;
+
 	// Use this for initialization
 	void Start () {
 		
