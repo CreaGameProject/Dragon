@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83136823c80357e489b1d1b681d45d60, type: 3}
+  m_Name: gadget
+  m_EditorClassIdentifier: 
+  Name: "\u30AC\u30B8\u30A7\u30C3\u30C8\u30B4\u30FC\u30EC\u30E0"
+  HPmax: 110
+  TPmax: 20
+  AttackP: 5
+  DefenceP: 8
+  SpeedP: 2
+  image: {fileID: 21300000, guid: c018d1975cc439942a88af3439ba8068, type: 3}
+  Para: 6e000000140000003c0000000800000002000000

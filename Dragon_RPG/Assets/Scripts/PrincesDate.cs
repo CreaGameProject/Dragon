@@ -7,14 +7,20 @@ public class PrincesDate : MonoBehaviour
     public string Name;
 
     public int HP;
-    public int HPmax;
-
     public int TP;
-    public int TPmax;
 
     public int AttackP;
     public int DefenceP;
     public int SpeedP;
+
+    BattleMain battle;
+
+    private void Awake()
+    {
+        battle = GameObject.Find("GameManager").GetComponent<BattleMain>();
+
+        //battle.names.Add(Name);
+    }
 
     // Use this for initialization
     void Start () {

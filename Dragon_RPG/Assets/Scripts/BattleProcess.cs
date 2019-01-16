@@ -13,4 +13,9 @@ public class BattleProcess : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void Attack()
+    {
+
+    }
 }
