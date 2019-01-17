@@ -11,6 +11,10 @@ public class BattleMain : MonoBehaviour
     EnemyDate enemyDate;
     TextOpen text;
 
+    [SerializeField] Sprite dragonImage;
+    [SerializeField] Sprite princesImage;
+
+
     delegate void action();
     action dd;
     List<action> playTurn = new List<action>();
@@ -42,7 +46,7 @@ public class BattleMain : MonoBehaviour
     float[] times;
     [SerializeField] float timeChargeMax = 10f;
 
-    int[,] status;//  ステータスの入れ物  //HP TP A D S Pos Time
+    public int[,] status;//  ステータスの入れ物  //HP TP A D S Pos Time
     int activeChara = 0;//行動キャラ　0 = dragon, 1 = Princes ,2以降　＝敵
     int targetSelect = 2;//選択　上に同じ
     int actionSelect = 0;//選択肢上から０. １．２．３．を選択中　攻　防　魔　逃
@@ -57,7 +61,7 @@ public class BattleMain : MonoBehaviour
         bProcess = GetComponent<BattleProcess>();
         enemyDate = GameObject.Find("DateBase").GetComponent<EnemyDate>();
         text = GameObject.Find("gameText").GetComponent<TextOpen>();
-
+        
         Debug.Log(enemy.Count + "E");
         text.words.Add("バトルスタート");
         text.words.Add("敵は"+enemy.Count+"体だ");

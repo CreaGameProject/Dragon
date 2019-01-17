@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class TextDra : MonoBehaviour {
 
-    [SerializeField] Text text;
+    [SerializeField] Text textS;
+    [SerializeField] Text text2;
 
     BattleMain battle;
 
     string name;
     string[] names;
+    int[,] stutus;
 
 	// Use this for initialization
 	void Start () {
@@ -18,16 +20,18 @@ public class TextDra : MonoBehaviour {
         battle = GameObject.Find("GameManager").GetComponent<BattleMain>();
         //name = "***";
 
+        
+      
+    }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
         names = battle.names;
+        stutus = battle.status;
 
-        text.text = names[0] + "\n" + names[1];
+        textS.text = names[0] + "\n" + names[1];
 
-        
+        text2.text = names[0] +"  "+ stutus[0, 0] + "\n" + names[1] +"  "+stutus[1, 0];
 	}
 }
