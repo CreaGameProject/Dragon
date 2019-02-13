@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyDataBase : ScriptableObject
 {
 
+    // Asset内に敵キャラのリストを作るためのやつ
+
     //[SerializeField]
     //private List<EnemyDateTable> enemyLists = new List<EnemyDateTable>();
 

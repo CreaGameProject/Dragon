@@ -14,8 +14,8 @@ MonoBehaviour:
   Name: "\u30AC\u30B8\u30A7\u30C3\u30C8\u30B4\u30FC\u30EC\u30E0"
   HPmax: 110
   TPmax: 20
-  AttackP: 5
+  AttackP: 30
   DefenceP: 8
   SpeedP: 2
   image: {fileID: 21300000, guid: c018d1975cc439942a88af3439ba8068, type: 3}
-  Para: 6e000000140000003c0000000800000002000000
+  Para: 6e000000140000001e0000000800000002000000

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class BattleMain : MonoBehaviour
 {
@@ -20,9 +22,7 @@ public class BattleMain : MonoBehaviour
     List<action> playTurn = new List<action>();
     int playF = 0; //0行動開始可能　１行動中　２行動受付開始
 
-    bool posF = false;
-    bool selectF = false; // true = 行動選択　
-    bool targetF = false; // true = 味方、敵選択
+    int selectF = 0 ; // 0=全ての選択無理  １= 行動選択 2=ターゲット選択　
 
     int[] activeFs; //(個人用)　0無理　１行動可能　２行動待機
     bool[] alives;
@@ -34,25 +34,23 @@ public class BattleMain : MonoBehaviour
 
     enum statusPosition { HP = 0, TP = 1, Attack, Defence, Speed, Position, Time };
 
-    //string[] names;
     public string[] names;
     public List<string> Enenames = new List<string>();
 
-    public List<int[]> enemy = new List<int[]>();
+    public List<int[]> enemyStatus = new List<int[]>();
     int totalEnemy = 0;
     int enemyMin = 2;
     int enemyMax = 1;
 
-    float[] times;
+    public float[] times; // 各キャラの行動に関連する時間
     [SerializeField] float timeChargeMax = 10f;
 
-    public int[,] status;//  ステータスの入れ物  //HP TP A D S Pos Time
+    public int[,] status;//  ステータスの入れ物  //HP TP A D S Pos 
     int activeChara = 0;//行動キャラ　0 = dragon, 1 = Princes ,2以降　＝敵
     int targetSelect = 2;//選択　上に同じ
     int actionSelect = 0;//選択肢上から０. １．２．３．を選択中　攻　防　魔　逃
 
-    //int enemySelect = 0;
-
+    
     // Use this for initialization
     void Start()
     {
@@ -62,9 +60,10 @@ public class BattleMain : MonoBehaviour
         enemyDate = GameObject.Find("DateBase").GetComponent<EnemyDate>();
         text = GameObject.Find("gameText").GetComponent<TextOpen>();
         
-        Debug.Log(enemy.Count + "E");
+        Debug.Log(enemyStatus.Count + "E");
         text.words.Add("バトルスタート");
-        text.words.Add("敵は"+enemy.Count+"体だ");
+        text.words.Add("敵は"+enemyStatus.Count+"体だ");
+
 
         statusSet();
 
@@ -76,9 +75,61 @@ public class BattleMain : MonoBehaviour
          * 
          */
 
-        posF = true;
-
     }
+
+    void statusSet()
+    {
+        totalEnemy = enemyStatus.Count;
+        enemyMax += enemyStatus.Count;
+
+        names = new string[enemyStatus.Count + 2];
+
+        names[0] = dragon.Name;
+        names[1] = princes.Name;
+
+        for (int count = 0; count < enemyStatus.Count; count++)
+        {
+            names[count + 2] = Enenames[count];
+        }
+
+        times = new float[enemyStatus.Count + 2];
+        activeFs = new int[enemyStatus.Count + 2];
+        alives = new bool[enemyStatus.Count + 2];
+
+        for (int count = 0; count < enemyStatus.Count + 2; count++)
+        {
+            activeFs[count] = 0;
+            alives[count] = true;
+        }
+
+        status = new int[enemyStatus.Count + 2, statusNum + 2];
+
+        status[0, 0] = dragon.HP;
+        status[0, 1] = dragon.TP;
+        status[0, 2] = dragon.AttackP;
+        status[0, 3] = dragon.DefenceP;
+        status[0, 4] = dragon.SpeedP;
+        status[0, 5] = 0;//Postion
+
+        status[1, 0] = princes.HP;
+        status[1, 1] = princes.TP;
+        status[1, 2] = princes.AttackP;
+        status[1, 3] = princes.DefenceP;
+        status[1, 4] = princes.SpeedP;
+        status[1, 5] = 0;//Postion
+
+        for (int countE = 0; countE < enemyStatus.Count; countE++)
+        {
+            for (int countS = 0; countS < statusNum; countS++)
+            {
+                status[countE + 2, countS] = enemyStatus[countE][countS];
+            }
+
+            status[countE + 2, statusNum] = 0;    //敵のposition
+
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -91,7 +142,6 @@ public class BattleMain : MonoBehaviour
 
         DeadCheck();
 
-        winCheck();
         endCheck();
 
     }
@@ -104,6 +154,12 @@ public class BattleMain : MonoBehaviour
 
             text.words.Add("やられちゃった（＞＋＜）");
         }
+
+        if (totalEnemy == 0)
+        {
+            // 戦闘終了（勝ち）のやつ
+            Debug.Log("Win");
+        }
     }
 
     void DeadCheck()
@@ -111,11 +167,12 @@ public class BattleMain : MonoBehaviour
         int max = 0;
         int min = 10;
 
-        for (int count  =0;count< enemy.Count+2;count++)
+        for (int count  =0;count< enemyStatus.Count+2;count++)
         {
             
             if (status[count,(int)statusPosition.HP] <= 0 && alives[count] ==true)
             {
+                status[count, (int)statusPosition.HP] = 0;
                 alives[count] = false;
 
                 text.words.Add(names[count]+"は倒れた");
@@ -150,43 +207,36 @@ public class BattleMain : MonoBehaviour
     IEnumerator objectDelete(int objectNum)
     {
         yield return new WaitForSeconds(2f);
-        enemyDate.enemyObjects[objectNum - 2].SetActive(false);
+        enemyDate.enemyObjects[objectNum].SetActive(false);
 
-    }
-
-    void winCheck()
-    {
-        if (totalEnemy ==0)
-        {
-            // 戦闘終了（勝ち）のやつ
-            Debug.Log("Win");
-        }
     }
 
     void TimeCharge()
     {
-        for (int count = 0; count < enemy.Count + 2; count++)
+        for (int count = 0; count < enemyStatus.Count + 2; count++)
         {
-      
-            times[count] += Time.deltaTime;
+
+            if (activeFs[count] ==0) {
+                times[count] += Time.deltaTime;
+            }
 
             if (times[count] >= timeChargeMax)
             {
                 times[count] = timeChargeMax;
 
-                if (activeFs[count] == 0)
+                if (activeFs[count] == 0 && playF != 1 )
                 {
-                    if (activeFs[0] != 1 && activeFs[1] != 1)
+                    if (selectF == 0)
                     {
                         if (count < 2)
                         {
                             Debug.Log("time" + count + "OK");
                             activeFs[count] = 1;
 
-                            selectF = true;
+                            selectF = 1;
                             activeChara = count;
 
-                            text.words.Add(names[count]+"の行動可能");
+                            //text.words.Add(names[count]+"の行動可能");
                         }
                     }
 
@@ -214,66 +264,10 @@ public class BattleMain : MonoBehaviour
             playTurn.RemoveAt(0);
         }
     }
-
-    void statusSet()
-    {
-        totalEnemy = enemy.Count;
-        enemyMax += enemy.Count;
-
-        names = new string[enemy.Count + 2];
-
-        names[0] = dragon.Name;
-        names[1] = princes.Name;
-
-        for (int count = 0;count < enemy.Count;count++)
-        {
-            names[count + 2] = Enenames[count];
-        }
-
-        times = new float[enemy.Count + 2];
-
-        activeFs = new int[enemy.Count + 2];
-
-        alives = new bool[enemy.Count + 2];
-
-        for (int count = 0; count < enemy.Count + 2; count++)
-        {
-            activeFs[count] = 0;
-            alives[count] = true;
-        }
-
-        status = new int[enemy.Count + 2, statusNum + 2];
-
-        status[0, 0] = dragon.HP;
-        status[0, 1] = dragon.TP;
-        status[0, 2] = dragon.AttackP;
-        status[0, 3] = dragon.DefenceP;
-        status[0, 4] = dragon.SpeedP;
-        status[0, 5] = 0;//Postion
-
-        status[1, 0] = princes.HP;
-        status[1, 1] = princes.TP;
-        status[1, 2] = princes.AttackP;
-        status[1, 3] = princes.DefenceP;
-        status[1, 4] = princes.SpeedP;
-        status[1, 5] = 0;//Postion
-
-        for (int countE = 0; countE < enemy.Count; countE++)
-        {
-            for (int countS = 0; countS < statusNum; countS++)
-            {
-                status[countE + 2, countS] = enemy[countE][countS];
-            }
-
-            status[countE + 2, statusNum] = 0;    //敵のposition
-
-            Debug.Log("enemySet");
-        }
-    }
-
+    
     void buttonSelect()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && targetF == true)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && selectF == 2)
         {
             targetSelect++;
 
@@ -288,7 +282,7 @@ public class BattleMain : MonoBehaviour
 
             Debug.Log(targetSelect + "C");
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) && targetF == true)
+        else if (Input.GetKeyDown(KeyCode.RightArrow) && selectF == 2)
         {
             targetSelect--;
 
@@ -307,12 +301,17 @@ public class BattleMain : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            selectF = true;
-            targetF = false;
+            
+            if(selectF >1){
+
+                selectF--;
+
+            }
+
         }
 
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && selectF == true)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && selectF == 1)
         {
             actionSelect--;
 
@@ -323,7 +322,7 @@ public class BattleMain : MonoBehaviour
 
             Debug.Log(actionSelect);
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) && selectF == true)
+        else if (Input.GetKeyDown(KeyCode.DownArrow) && selectF == 1)
         {
             actionSelect++;
 
@@ -340,7 +339,7 @@ public class BattleMain : MonoBehaviour
             actionSet(activeChara);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightShift) && posF == true)
+        if (Input.GetKeyDown(KeyCode.RightShift) && playF != 1)
         {
             status[1, 5]++;
 
@@ -351,7 +350,7 @@ public class BattleMain : MonoBehaviour
 
             Debug.Log(status[1, 5]);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && posF == true)
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && playF != 1)
         {
             status[1, 5]--;
 
@@ -376,14 +375,13 @@ public class BattleMain : MonoBehaviour
                 case 0:
 
                     //攻撃
-                    if (selectF == true)
+                    if (selectF == 1)
                     {
                         Debug.Log("ターゲット");
-
                         text.words.Add("相手を選択");
 
-                        selectF = false;
-                        targetF = true;
+                        targetSelect = enemyMin;
+                        selectF = 2;
 
                         break;
                     }
@@ -396,10 +394,10 @@ public class BattleMain : MonoBehaviour
 
                     };
 
+
                     playTurn.Add(dd);
 
-                    selectF = false;
-                    targetF = false;
+                    selectF = 0;
                     activeFs[charaNum] = 2;
 
 
@@ -417,8 +415,7 @@ public class BattleMain : MonoBehaviour
 
                     playTurn.Add(dd);
 
-                    selectF = false;
-                    targetF = false;
+                    selectF = 0;
                     activeFs[charaNum] = 2;
 
                     break;
@@ -430,13 +427,12 @@ public class BattleMain : MonoBehaviour
                     {
                         Debug.Log("C");
 
-                        StartCoroutine(waitPlay(charaNum));
+                        StartCoroutine(TimerChange(charaNum));
                     };
 
                     playTurn.Add(dd);
 
-                    selectF = false;
-                    targetF = false;
+                    selectF = 0;
                     activeFs[charaNum] = 2;
 
                     break;
@@ -448,13 +444,12 @@ public class BattleMain : MonoBehaviour
                     {
                         Debug.Log("E");
 
-                        StartCoroutine(waitPlay(charaNum));
+                        StartCoroutine(Escape(charaNum));
                     };
 
                     playTurn.Add(dd);
 
-                    selectF = false;
-                    targetF = false;
+                    selectF = 0;
                     activeFs[charaNum] = 2;
 
                     break;
@@ -517,6 +512,11 @@ public class BattleMain : MonoBehaviour
     {
         Debug.Log("A awake");
 
+        if (alives[target] == false)
+        {
+            target = enemyMin;
+        }
+
         text.words.Add(names[Attacker]+"の"+names[target]+"への攻撃");
 
         yield return new WaitForSeconds(1f);
@@ -545,13 +545,13 @@ public class BattleMain : MonoBehaviour
         StartCoroutine(waitPlay(Skiller));
     }
 
-    IEnumerator TimerChange(int giver,int receiver)
+    IEnumerator TimerChange(int giver)
     {
         text.words.Add(names[giver] + "は力を与えた");
 
         yield return new WaitForSeconds(1f);
 
-        times[receiver] = timeChargeMax;
+        times[Mathf.Abs(giver-1)] = timeChargeMax;
 
         playF = 2;
 
@@ -568,11 +568,11 @@ public class BattleMain : MonoBehaviour
 
         bool escapeF = true;
 
-        for (int countE = 0; countE < enemy.Count; countE++)
+        for (int count = 0; count < enemyStatus.Count; count++)
         {
             int num = Random.Range(-50, 50);
 
-            if (status[Escaper,(int)statusPosition.Speed] < num)
+            if (status[Escaper,(int)statusPosition.Speed] < num && alives[count+2] == true)
             {
                 escapeF = false;
             }
@@ -598,9 +598,11 @@ public class BattleMain : MonoBehaviour
 
     IEnumerator waitPlay(int actioner)
     {
+        times[actioner] = 0;
+
         yield return new WaitForSeconds(waitTurnTime);
         activeFs[actioner] = 0;
-        times[actioner] = 0;
+        
         playF = 0;
 
         Debug.Log("waitEnd");

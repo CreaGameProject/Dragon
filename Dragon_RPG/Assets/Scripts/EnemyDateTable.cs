@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "DateBase/Create EnemyDateTable", fileName = "EnemyDateTable")]
 public class EnemyDateTable : ScriptableObject
 {
+
+    //　Asset内で素材のように敵キャラのステータスなどをいじるためのやつ
+
     public string Name;
 
     [SerializeField] private int HPmax;

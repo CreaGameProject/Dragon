@@ -19,7 +19,6 @@ public class PrincesDate : MonoBehaviour
     {
         battle = GameObject.Find("GameManager").GetComponent<BattleMain>();
 
-        //battle.names.Add(Name);
     }
 
     // Use this for initialization

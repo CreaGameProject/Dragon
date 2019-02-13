@@ -19,7 +19,6 @@ public class DragonDate : MonoBehaviour {
     {
         battle = GameObject.Find("GameManager").GetComponent<BattleMain>();
 
-        //battle.names[0](Name);
     }
 
     // Use this for initialization

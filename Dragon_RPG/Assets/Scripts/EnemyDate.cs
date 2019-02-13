@@ -6,50 +6,51 @@ using UnityEngine.UI;
 public class EnemyDate : MonoBehaviour {
 
     BattleMain battle;
-
     startBattle start;
 
-    [SerializeField] private EnemyDataBase enemyData;
+    [SerializeField] EnemyDataBase enemyDataBase;
 
     [SerializeField] GameObject enemy1;
     [SerializeField] GameObject enemy2;
     [SerializeField] GameObject enemy3;
 
-    private List<int> Para;
-    public List<int> enemy = new List<int>();
-
     public List<GameObject> enemyObjects;
+
+    private List<int> Para;
+  
+    int[] enemyPara ;
+
+ 
+    List<EnemyDateTable> enemyDates;
 
     private void Awake()
     {
         battle = GameObject.Find("GameManager").GetComponent<BattleMain>();
-
         enemyObjects = new List<GameObject>() { enemy1,enemy2,enemy3 };
 
-        int countMax = enemyData.GetenemyLists().Count;
+        enemyDates = enemyDataBase.GetenemyLists();
 
-        int paraNum = enemyData.GetenemyLists()[0].GetPara().Count;
-        int[] enemyPara;
-
-        for (int count =0;count < countMax;count++)
+      
+        for (int count =0;count < enemyDates.Count;count++)
         {
-            battle.Enenames.Add(enemyData.GetenemyLists()[count].GetName());
+            battle.Enenames.Add(enemyDates[count].GetName());
 
-            Para = new List<int>(enemyData.GetenemyLists()[count].GetPara());
+            enemyObjects[count].GetComponent<SpriteRenderer>().sprite = enemyDates[count].GetImage();
 
-            enemyPara = new int[paraNum];
 
-            enemyObjects[count].GetComponent<SpriteRenderer>().sprite = enemyData.GetenemyLists()[count].GetImage();
+            Para = new List<int>(enemyDates[count].GetPara());
+            int[] enemyPara = new int[BattleMain.statusNum];
 
-            for (int countN =0;countN < paraNum;countN++)
+            for (int countN =0;countN < BattleMain.statusNum;countN++)
             {
                 enemyPara[countN] = Para[countN];
             }
 
-            battle.enemy.Add(enemyPara);
+            battle.enemyStatus.Add(enemyPara);
 
         }
 
+       
 
     }
 
@@ -57,9 +58,9 @@ public class EnemyDate : MonoBehaviour {
     void Start()
     {
 
-        Debug.Log(enemyData.GetenemyLists()[0].GetName());
+        Debug.Log(enemyDates[0].GetName());
 
-        Para = new List<int>(enemyData.GetenemyLists()[0].GetPara());
+        Para = new List<int>(enemyDates[0].GetPara());
 
         for (int count = 0; count < Para.Count; count++)
         {
