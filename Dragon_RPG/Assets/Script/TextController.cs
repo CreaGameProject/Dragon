@@ -12,8 +12,6 @@ public class TextController : MonoBehaviour
     [SerializeField] Text uiText;   // uiTextへの参照
     [SerializeField] List<string> Stories = new List<string>();
 
-    public MassageController massage;
-
     [SerializeField]
     [Range(0.001f, 0.3f)]
     float intervalForCharDisplay = 0.1f;
@@ -78,10 +76,8 @@ public class TextController : MonoBehaviour
     {
         
         currentSentence = Stories[currentSentenceNum];
-        //massage.GetComponent<MassageController>().sentence = currentSentence;
         currentSentence=currentSentence.ToString().Replace(@"_", System.Environment.NewLine);
         timeUntilDisplay = currentSentence.Length * intervalForCharDisplay;
-        Debug.Log(timeUntilDisplay);
         timeBeganDisplay = Time.time;
         currentSentenceNum++;
         lastUpdateCharCount = 0;
