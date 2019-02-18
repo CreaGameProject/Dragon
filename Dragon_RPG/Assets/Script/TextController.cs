@@ -11,16 +11,20 @@ public class TextController : MonoBehaviour
     public string story;
     [SerializeField] Text uiText;   // uiTextへの参照
     [SerializeField] List<string> Stories = new List<string>();
+
+    public MassageController massage;
+
     [SerializeField]
     [Range(0.001f, 0.3f)]
     float intervalForCharDisplay = 0.1f;
     private List<string>.Enumerator enumerator;
-    private int storyLen;
     private int currentSentenceNum = 0; //現在表示している文章番号
-    private string currentSentence = string.Empty;  // 現在の文字列
+    public string currentSentence = string.Empty;  // 現在の文字列
     private float timeUntilDisplay = 0;     // 表示にかかる時間
     private float timeBeganDisplay = 1;         // 文字列の表示を開始した時間
     private int lastUpdateCharCount = -1;       // 表示中の文字数
+    private bool line = true;
+    private int nun = 0;
 
 
     void Start()
@@ -32,7 +36,6 @@ public class TextController : MonoBehaviour
             string line = reder.ReadLine();
             Stories.Add(line);
         }
-
         enumerator = Stories.GetEnumerator();
         OnClick();
     }
@@ -42,7 +45,7 @@ public class TextController : MonoBehaviour
         if (IsDisplayComplete())
         {
             //最後の文章ではない & ボタンが押された
-            if (currentSentenceNum < storyLen && Input.GetKeyUp(KeyCode.Space))
+            if (currentSentenceNum < currentSentence.Length && Input.GetKeyUp(KeyCode.Space))
             {
                 OnClick();
             }
@@ -52,7 +55,7 @@ public class TextController : MonoBehaviour
             //ボタンが押された
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                timeUntilDisplay = 0; //※1
+                timeUntilDisplay = 0; 
             }
         }
         if (Input.GetMouseButtonDown(0))
@@ -62,6 +65,7 @@ public class TextController : MonoBehaviour
 
         //表示される文字数を計算
         int displayCharCount = (int)(Mathf.Clamp01((Time.time - timeBeganDisplay) / timeUntilDisplay) * currentSentence.Length);
+
         //表示される文字数が表示している文字数と違う
         if (displayCharCount != lastUpdateCharCount)
         {
@@ -72,9 +76,12 @@ public class TextController : MonoBehaviour
     }
     public void OnClick()
     {
+        
         currentSentence = Stories[currentSentenceNum];
-        storyLen = currentSentence.Length;
+        //massage.GetComponent<MassageController>().sentence = currentSentence;
+        currentSentence=currentSentence.ToString().Replace(@"_", System.Environment.NewLine);
         timeUntilDisplay = currentSentence.Length * intervalForCharDisplay;
+        Debug.Log(timeUntilDisplay);
         timeBeganDisplay = Time.time;
         currentSentenceNum++;
         lastUpdateCharCount = 0;
