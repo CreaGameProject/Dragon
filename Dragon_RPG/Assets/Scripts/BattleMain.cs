@@ -13,9 +13,11 @@ public class BattleMain : MonoBehaviour
     EnemyDate enemyDate;
     TextOpen text;
 
+    TimeBelt timeBelt;
+    List<string> timeBeltList = new List<string>();
+
     [SerializeField] Sprite dragonImage;
     [SerializeField] Sprite princesImage;
-
 
     delegate void action();
     action dd;
@@ -59,7 +61,10 @@ public class BattleMain : MonoBehaviour
         bProcess = GetComponent<BattleProcess>();
         enemyDate = GameObject.Find("DateBase").GetComponent<EnemyDate>();
         text = GameObject.Find("gameText").GetComponent<TextOpen>();
-        
+
+        timeBelt = GameObject.Find("Canvas").GetComponent<TimeBelt>();
+        timeBeltList = timeBelt.timeBeltName;
+
         Debug.Log(enemyStatus.Count + "E");
         text.words.Add("バトルスタート");
         text.words.Add("敵は"+enemyStatus.Count+"体だ");
@@ -130,6 +135,26 @@ public class BattleMain : MonoBehaviour
         }
     }
 
+    public int sendPlay()
+    {
+        return playF;
+    }
+
+    public int sendSelect()
+    {
+        return selectF;
+    }
+
+    public int sendActionSelect()
+    {
+        return actionSelect;
+    }
+
+    public string sendActiveChara()
+    {
+        return names[activeChara];
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -151,7 +176,6 @@ public class BattleMain : MonoBehaviour
         if (alives[0] == false || alives[1] == false)
         {
             //　戦闘終了(負け)のやつ
-
             text.words.Add("やられちゃった（＞＋＜）");
         }
 
@@ -159,6 +183,8 @@ public class BattleMain : MonoBehaviour
         {
             // 戦闘終了（勝ち）のやつ
             Debug.Log("Win");
+
+            text.words.Add("勝ったよ～～～（＿＋＿）");
         }
     }
 
@@ -174,6 +200,7 @@ public class BattleMain : MonoBehaviour
             {
                 status[count, (int)statusPosition.HP] = 0;
                 alives[count] = false;
+                timeBeltList.Remove(names[count]);
 
                 text.words.Add(names[count]+"は倒れた");
                 
@@ -245,7 +272,7 @@ public class BattleMain : MonoBehaviour
                     {
                         activeFs[count] = 1;
 
-                        StartCoroutine(enemyActionSet(count));
+                        //StartCoroutine(enemyActionSet(count));
                     }
 
                 }
@@ -262,6 +289,7 @@ public class BattleMain : MonoBehaviour
 
             playTurn[0]();
             playTurn.RemoveAt(0);
+            
         }
     }
     
@@ -388,7 +416,6 @@ public class BattleMain : MonoBehaviour
 
                     dd = delegate ()
                     {
-                        Debug.Log("A" + charaNum + "to" + targetSelect);
 
                         StartCoroutine(Attack(charaNum, targetSelect));
 
@@ -396,6 +423,7 @@ public class BattleMain : MonoBehaviour
 
 
                     playTurn.Add(dd);
+                    timeBeltList.Add(names[charaNum]);
 
                     selectF = 0;
                     activeFs[charaNum] = 2;
@@ -414,6 +442,7 @@ public class BattleMain : MonoBehaviour
                     };
 
                     playTurn.Add(dd);
+                    timeBeltList.Add(names[charaNum]);
 
                     selectF = 0;
                     activeFs[charaNum] = 2;
@@ -431,6 +460,7 @@ public class BattleMain : MonoBehaviour
                     };
 
                     playTurn.Add(dd);
+                    timeBeltList.Add(names[charaNum]);
 
                     selectF = 0;
                     activeFs[charaNum] = 2;
@@ -448,6 +478,7 @@ public class BattleMain : MonoBehaviour
                     };
 
                     playTurn.Add(dd);
+                    timeBeltList.Add(names[charaNum]);
 
                     selectF = 0;
                     activeFs[charaNum] = 2;
@@ -484,6 +515,8 @@ public class BattleMain : MonoBehaviour
                     Debug.Log("enemySet");
 
                     playTurn.Add(dd);
+                    timeBeltList.Add(names[actionEnemy]);
+
                     activeFs[actionEnemy] = 2;
 
                     break;
@@ -510,99 +543,120 @@ public class BattleMain : MonoBehaviour
     //通常攻撃の処理　　引数は　攻撃するやつの番号 と　攻撃を受けるやつの番号（charaSelectのやつ）
     IEnumerator Attack(int Attacker, int target)
     {
-        Debug.Log("A awake");
+        if (alives[Attacker] == true) {
 
-        if (alives[target] == false)
-        {
-            target = enemyMin;
+            Debug.Log("A awake");
+
+            if (alives[target] == false)
+            {
+                target = enemyMin;
+            }
+
+            text.words.Add(names[Attacker] + "の" + names[target] + "への攻撃");
+
+            yield return new WaitForSeconds(1f);
+
+            float damage = status[Attacker, (int)statusPosition.Attack];
+
+            status[target, (int)statusPosition.HP] -= (int)damage;
+
+            text.words.Add(names[target] + "に" + (int)damage + "のダメージ");
+
+            playF = 2;
+
+            StartCoroutine(waitPlay(Attacker));
+
+            Debug.Log("Await");
         }
-
-        text.words.Add(names[Attacker]+"の"+names[target]+"への攻撃");
-
-        yield return new WaitForSeconds(1f);
-
-        float damage = status[Attacker, (int)statusPosition.Attack];
-
-        status[target, (int)statusPosition.HP] -= (int)damage;
-
-        text.words.Add(names[target] + "に"+(int)damage+"のダメージ");
-
-        playF = 2;
-
-        StartCoroutine(waitPlay(Attacker));
-
-        Debug.Log("Await");
     }
 
     IEnumerator Skill(int Skiller)
     {
-        text.words.Add(names[Skiller] + "はスキルを使った");
+        if (alives[Skiller] == true) {
 
-        yield return new WaitForSeconds(1f);
+            text.words.Add(names[Skiller] + "はスキルを使った");
 
-        playF = 2;
+            yield return new WaitForSeconds(1f);
 
-        StartCoroutine(waitPlay(Skiller));
+            playF = 2;
+
+            StartCoroutine(waitPlay(Skiller));
+
+        }
     }
 
     IEnumerator TimerChange(int giver)
     {
-        text.words.Add(names[giver] + "は力を与えた");
+        if (alives[giver] == true)
+        {
 
-        yield return new WaitForSeconds(1f);
+            text.words.Add(names[giver] + "は力を与えた");
 
-        times[Mathf.Abs(giver-1)] = timeChargeMax;
+            yield return new WaitForSeconds(1f);
 
-        playF = 2;
+            times[Mathf.Abs(giver - 1)] = timeChargeMax;
 
-        StartCoroutine(waitPlay(giver));
+            Debug.Log("wwww");
+
+            playF = 2;
+
+            StartCoroutine(waitPlay(giver));
+
+        }
     }
 
     IEnumerator Escape(int Escaper)
     {
-        Debug.Log("A awake");
-
-        text.words.Add(names[Escaper] + "は逃げ出した");
-
-        yield return new WaitForSeconds(1f);
-
-        bool escapeF = true;
-
-        for (int count = 0; count < enemyStatus.Count; count++)
+        if (alives[Escaper] == true)
         {
-            int num = Random.Range(-50, 50);
 
-            if (status[Escaper,(int)statusPosition.Speed] < num && alives[count+2] == true)
+            Debug.Log("A awake");
+
+            text.words.Add(names[Escaper] + "は逃げ出した");
+
+            yield return new WaitForSeconds(1f);
+
+            bool escapeF = true;
+
+            for (int count = 0; count < enemyStatus.Count; count++)
             {
-                escapeF = false;
+                int num = Random.Range(-50, 50);
+
+                if (status[Escaper, (int)statusPosition.Speed] < num && alives[count + 2] == true)
+                {
+                    escapeF = false;
+                }
+
             }
 
-        }
+            if (escapeF == true)
+            {
+                //逃走成功
+                Debug.Log("成功");
+                text.words.Add(names[Escaper] + "は逃げ出した");
+            }
+            else
+            {
+                Debug.Log("失敗");
+                text.words.Add(names[Escaper] + "は囲まれて逃げれない");
 
-        if (escapeF == true)
-        {
-            //逃走成功
-            Debug.Log("成功");
-            text.words.Add(names[Escaper] + "は逃げ出した");
-        }
-        else
-        {
-            Debug.Log("失敗");
-            text.words.Add(names[Escaper] + "は囲まれて逃げれない");
+                playF = 2;
 
-            playF = 2;
+                StartCoroutine(waitPlay(Escaper));
+            }
 
-            StartCoroutine(waitPlay(Escaper));
         }
     }
 
     IEnumerator waitPlay(int actioner)
     {
         times[actioner] = 0;
-
+        
         yield return new WaitForSeconds(waitTurnTime);
         activeFs[actioner] = 0;
-        
+        timeBeltList.RemoveAt(0);
+
+
         playF = 0;
 
         Debug.Log("waitEnd");

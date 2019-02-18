@@ -9,7 +9,7 @@ public class slider : MonoBehaviour {
     [SerializeField] Slider lSlider;
 
     BattleMain battleMain;
-
+   
     // Use this for initialization
     void Start () {
 

@@ -30,7 +30,7 @@ public class TextDra : MonoBehaviour {
         names = battle.names;
         stutus = battle.status;
 
-        textS.text = names[0] + "\n" + names[1];
+       // textS.text = names[0] + "\n" + names[1];
 
         text2.text = names[0] +"  "+ stutus[0, 0] + "\n" + names[1] +"  "+stutus[1, 0];
 	}
