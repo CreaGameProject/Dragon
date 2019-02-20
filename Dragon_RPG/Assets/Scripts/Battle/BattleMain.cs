@@ -263,7 +263,7 @@ public class BattleMain : MonoBehaviour
                     {
                         activeFs[count] = 1;
 
-                        //StartCoroutine(enemyActionSet(count));
+                        StartCoroutine(enemyActionSet(count));
                     }
 
                 }
@@ -553,12 +553,14 @@ public class BattleMain : MonoBehaviour
 
             text.words.Add(names[target] + "に" + (int)damage + "のダメージ");
 
-            playF = 2;
-
-            StartCoroutine(waitPlay(Attacker));
+            
 
             Debug.Log("Await");
         }
+
+        playF = 2;
+
+        StartCoroutine(waitPlay(Attacker));
     }
 
     IEnumerator Skill(int Skiller)
@@ -569,11 +571,11 @@ public class BattleMain : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
 
-            playF = 2;
-
-            StartCoroutine(waitPlay(Skiller));
-
         }
+
+        playF = 2;
+
+        StartCoroutine(waitPlay(Skiller));
     }
 
     IEnumerator TimerChange(int giver)
@@ -589,11 +591,12 @@ public class BattleMain : MonoBehaviour
 
             Debug.Log("wwww");
 
-            playF = 2;
-
-            StartCoroutine(waitPlay(giver));
-
         }
+
+        playF = 2;
+
+        StartCoroutine(waitPlay(giver));
+
     }
 
     IEnumerator Escape(int Escaper)
@@ -645,8 +648,10 @@ public class BattleMain : MonoBehaviour
         
         yield return new WaitForSeconds(waitTurnTime);
         activeFs[actioner] = 0;
-        timeBeltList.RemoveAt(0);
 
+        if (alives[actioner] == true) {
+            timeBeltList.RemoveAt(0);
+        }
 
         playF = 0;
 
