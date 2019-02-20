@@ -69,16 +69,7 @@ public class BattleMain : MonoBehaviour
         text.words.Add("バトルスタート");
         text.words.Add("敵は"+enemyStatus.Count+"体だ");
 
-
         statusSet();
-
-        //action dd = delegate () { Debug.Log("testes"); };
-        //playTurn.Add(dd);
-
-        /*画面の表示
-         * 
-         * 
-         */
 
     }
 
