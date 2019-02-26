@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83136823c80357e489b1d1b681d45d60, type: 3}
-  m_Name: gadget
+  m_Name: kinoko
   m_EditorClassIdentifier: 
-  Name: "\u30AC\u30B8\u30A7\u30C3\u30C8\u30B4\u30FC\u30EC\u30E0"
-  HPmax: 110
-  TPmax: 20
-  AttackP: 30
-  DefenceP: 8
-  SpeedP: 2
-  image: {fileID: 21300000, guid: c018d1975cc439942a88af3439ba8068, type: 3}
-  Para: 6e000000140000001e0000000800000002000000
+  Name: "\u30DE\u30C3\u30B7\u30E5\u30DE\u30C3\u30B7\u30E5"
+  HPmax: 90
+  TPmax: 60
+  AttackP: 15
+  DefenceP: 6
+  SpeedP: 3
+  image: {fileID: 21300000, guid: 2ea32185896e9604fb97f855074a648d, type: 3}
+  Para: 5a0000003c0000000f0000000600000003000000

@@ -16,8 +16,6 @@ public class BattleMain : MonoBehaviour
     TimeBelt timeBelt;
     List<string> timeBeltList = new List<string>();
 
-    [SerializeField] Sprite dragonImage;
-    [SerializeField] Sprite princesImage;
 
     delegate void action();
     action dd;
@@ -47,7 +45,7 @@ public class BattleMain : MonoBehaviour
     public float[] times; // 各キャラの行動に関連する時間
     [SerializeField] float timeChargeMax = 10f;
 
-    public int[,] status;//  ステータスの入れ物  //HP TP A D S Pos 
+    public int[,] status;//  ステータスの入れ物 // 左キャラ  //右　HP TP A D S Pos 
     int activeChara = 0;//行動キャラ　0 = dragon, 1 = Princes ,2以降　＝敵
     int targetSelect = 2;//選択　上に同じ
     int actionSelect = 0;//選択肢上から０. １．２．３．を選択中　攻　防　魔　逃

@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class Command : MonoBehaviour {
 
+    [SerializeField] GameObject commandMark;
+
     [SerializeField] Text commandName;
     [SerializeField] Text command0;
     [SerializeField] Text command1;
     [SerializeField] Text command2;
     [SerializeField] Text command3;
 
-    Text[] commandBax;
+    public Text[] commandBax;
 
 
     [SerializeField] string[] actionKind;
@@ -34,6 +36,8 @@ public class Command : MonoBehaviour {
         {
             case 0:
 
+                commandMark.SetActive(false);
+
                 for (int count = 0; count < 4; count++)
                 {
 
@@ -47,6 +51,7 @@ public class Command : MonoBehaviour {
 
             case 1:
 
+                commandMark.SetActive(true);
                 commandName.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
                 commandName.text = battleMain.sendActiveChara();
 
@@ -63,6 +68,7 @@ public class Command : MonoBehaviour {
 
             case 2:
 
+                commandMark.SetActive(true);
                 commandName.color = new Color(140f / 255f, 140f / 255f, 140f / 255f);
                 commandName.text = "";
 
@@ -78,38 +84,7 @@ public class Command : MonoBehaviour {
                 break;
         }
 
-        /*
-        if ( battleMain.sendSelect() ==0 )
-        {
-            commandText.text = " ";
-        }
-        else
-        {
-            if ( battleMain.sendSelect() !=1 )
-            {
-                commandText.color = new Color(140f/255f,140f/255f,140f/255f);
-            }
-            else
-            {
-                commandText.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
-            }
-
-
-            for (int count = 0;count<4;count++)
-            {
-                if (count == 0 )
-                {
-                    commandText.text = actionKind[count] + "\n";
-                }
-                else
-                {
-                    commandText.text += actionKind[count] + "\n";
-                }
-
-            }
-
-        }
-            */   
+        
  
 	}
 }

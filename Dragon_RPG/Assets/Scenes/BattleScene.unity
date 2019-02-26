@@ -223,6 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 145903570}
   - component: {fileID: 145903569}
+  - component: {fileID: 145903571}
   m_Layer: 0
   m_Name: RagonOb
   m_TagString: Untagged
@@ -265,15 +266,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8616a1b934feded45b9975c93fedee82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.6, y: 1.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &145903570
@@ -283,12 +284,30 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 145903568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &145903571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 145903568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b0e65eda2d639499ea676ed178dd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  dragonImage: {fileID: 0}
+  HP: 0
+  TP: 0
+  AttackP: 0
+  DefenceP: 0
+  SpeedP: 0
 --- !u!1 &177645007
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e43c21a6ff9cb458b1eabb17ffdec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNum: 2
 --- !u!212 &265534370
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -480,10 +500,10 @@ Transform:
   m_GameObject: {fileID: 265534368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &280363301
 GameObject:
@@ -514,8 +534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0dbc9e54ae85b94c82ecbf1ef250694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragonImage: {fileID: 0}
-  princesImage: {fileID: 0}
   waitTurnTime: 5
   names: []
   Enenames: []
@@ -568,7 +586,7 @@ GameObject:
   - component: {fileID: 298941479}
   - component: {fileID: 298941478}
   m_Layer: 5
-  m_Name: Text
+  m_Name: sText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -590,7 +608,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 110, y: 80}
+  m_SizeDelta: {x: 400, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &298941478
 MonoBehaviour:
@@ -613,10 +631,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -624,7 +642,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+
+    aaaa'
 --- !u!222 &298941479
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -761,7 +782,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582712206
 GameObject:
@@ -849,7 +870,7 @@ GameObject:
   - component: {fileID: 649280394}
   - component: {fileID: 649280393}
   m_Layer: 5
-  m_Name: ste
+  m_Name: timeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -867,7 +888,7 @@ RectTransform:
   m_Children:
   - {fileID: 1857568921}
   m_Father: {fileID: 1113254192}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -937,6 +958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: "\u30E9\u30B4\u30F3"
+  dragonImage: {fileID: 0}
   HP: 200
   TP: 0
   AttackP: 100
@@ -954,6 +976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: "\u30EC\u30CA"
+  princesImage: {fileID: 0}
   HP: 100
   TP: 0
   AttackP: 200
@@ -1022,7 +1045,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 300, y: 75}
+  m_SizeDelta: {x: 100, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &779217971
 MonoBehaviour:
@@ -1181,6 +1204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e43c21a6ff9cb458b1eabb17ffdec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNum: 0
 --- !u!212 &886273253
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1234,11 +1258,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 886273251}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 5, y: 3, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &897621317
 GameObject:
@@ -1269,12 +1293,12 @@ RectTransform:
   m_Children:
   - {fileID: 779217970}
   m_Father: {fileID: 1113254192}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 55}
-  m_SizeDelta: {x: 400, y: 110}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 217.15002, y: -294.75}
+  m_SizeDelta: {x: 174.7, y: 116.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &897621319
 MonoBehaviour:
@@ -1371,6 +1395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e43c21a6ff9cb458b1eabb17ffdec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNum: 1
 --- !u!212 &1026012361
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1424,11 +1449,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1026012359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1113254188
 GameObject:
@@ -1519,15 +1544,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 897621318}
   - {fileID: 649280392}
   - {fileID: 1762563481}
+  - {fileID: 897621318}
   - {fileID: 1276130723}
   - {fileID: 1995253491}
   - {fileID: 32508530}
   - {fileID: 2129666969}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1584,11 +1609,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1bdff7a9e7bbc438ad84df7680d9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandMark: {fileID: 2129666968}
   commandName: {fileID: 1305384475}
   command0: {fileID: 582712208}
   command1: {fileID: 1239080268}
   command2: {fileID: 177645010}
   command3: {fileID: 1580205791}
+  commandBax: []
   actionKind:
   - "\u305F\u305F\u304B\u3046"
   - "\u3068\u304F\u304E"
@@ -1747,6 +1774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1263653790}
   - component: {fileID: 1263653789}
+  - component: {fileID: 1263653791}
   m_Layer: 0
   m_Name: PrincesOb
   m_TagString: Untagged
@@ -1789,15 +1817,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 2a8bcc0ce66e5704da103b983639fb22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.6, y: 1.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1263653790
@@ -1807,12 +1835,30 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1263653788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1263653791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1263653788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb9b064ae5edd54d90ecb8de7988750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  princesImage: {fileID: 0}
+  HP: 0
+  TP: 0
+  AttackP: 0
+  DefenceP: 0
+  SpeedP: 0
 --- !u!1 &1276130722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,12 +2191,12 @@ RectTransform:
   m_Children:
   - {fileID: 298941477}
   m_Father: {fileID: 1113254192}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -65, y: 55}
-  m_SizeDelta: {x: 130, y: 110}
+  m_AnchoredPosition: {x: -240, y: 55}
+  m_SizeDelta: {x: 480, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762563482
 MonoBehaviour:
@@ -2196,7 +2242,7 @@ GameObject:
   - component: {fileID: 1857568924}
   - component: {fileID: 1857568923}
   m_Layer: 5
-  m_Name: steText
+  m_Name: timeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2500,13 +2546,14 @@ GameObject:
   - component: {fileID: 2129666969}
   - component: {fileID: 2129666971}
   - component: {fileID: 2129666970}
+  - component: {fileID: 2129666972}
   m_Layer: 5
   m_Name: CommandMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2129666969
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2515,7 +2562,7 @@ RectTransform:
   m_GameObject: {fileID: 2129666968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1113254192}
   m_RootOrder: 6
@@ -2544,7 +2591,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: e59aac5f3bca9aa4eb8bc63735e8c35d, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2558,3 +2605,14 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2129666968}
   m_CullTransparentMesh: 0
+--- !u!114 &2129666972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129666968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cdf0b312790e794dabf7128447e3b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

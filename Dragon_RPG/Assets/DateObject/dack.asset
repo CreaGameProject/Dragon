@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83136823c80357e489b1d1b681d45d60, type: 3}
-  m_Name: Eyevil
+  m_Name: dack
   m_EditorClassIdentifier: 
-  Name: "\u30A2\u30A4\u30D3\u30EB"
-  HPmax: 60
-  TPmax: 100
-  AttackP: 6
-  DefenceP: 3
-  SpeedP: 10
-  image: {fileID: 21300000, guid: bd3e01a405461854c9e651ff639fb098, type: 3}
-  Para: 3c000000640000000f000000030000000a000000
+  Name: "\u30CE\u30E9\u30A4\u30ED\u30C0\u30C3\u30AF"
+  HPmax: 110
+  TPmax: 20
+  AttackP: 30
+  DefenceP: 8
+  SpeedP: 2
+  image: {fileID: 21300000, guid: 7782387a8865dc34fa5f78c2b45110af, type: 3}
+  Para: 6e000000140000001e0000000800000002000000

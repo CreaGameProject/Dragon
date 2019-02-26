@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: EnemyDataBase
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataBase
   enemyLists:
-  - {fileID: 11400000, guid: 19e13ba70810ed041b2ea93877e5c53c, type: 2}
-  - {fileID: 11400000, guid: 7379752ccf55bff42aaa90a77bb47f4b, type: 2}
   - {fileID: 11400000, guid: 07bf7461cd04fbb4bbb34b080839acab, type: 2}
+  - {fileID: 11400000, guid: 7379752ccf55bff42aaa90a77bb47f4b, type: 2}
+  - {fileID: 11400000, guid: 19e13ba70810ed041b2ea93877e5c53c, type: 2}

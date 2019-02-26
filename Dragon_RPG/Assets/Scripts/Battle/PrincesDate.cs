@@ -5,6 +5,7 @@ using UnityEngine;
 public class PrincesDate : MonoBehaviour
 {
     public string Name;
+    [SerializeField] Sprite princesImage;
 
     public int HP;
     public int TP;
@@ -13,11 +14,11 @@ public class PrincesDate : MonoBehaviour
     public int DefenceP;
     public int SpeedP;
 
-    BattleMain battle;
+    BattleMain battleMain;
 
     private void Awake()
     {
-        battle = GameObject.Find("GameManager").GetComponent<BattleMain>();
+        battleMain = GameObject.Find("GameManager").GetComponent<BattleMain>();
 
     }
 
@@ -28,6 +29,8 @@ public class PrincesDate : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        transform.position = new Vector3((battleMain.status[1,5] * 2) + 2 , transform.position.y, transform.position.z);
+
+    }
 }

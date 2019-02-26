@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83136823c80357e489b1d1b681d45d60, type: 3}
-  m_Name: Egg
+  m_Name: kangaro
   m_EditorClassIdentifier: 
-  Name: "\u30A8\u30C3\u30B0\u30B5\u30A6\u30EB\u30B9"
-  HPmax: 90
-  TPmax: 60
-  AttackP: 15
-  DefenceP: 6
-  SpeedP: 3
-  image: {fileID: 21300000, guid: 0aa2c9ffeffe2d34fa8967927038969b, type: 3}
-  Para: 5a0000003c000000230000000600000003000000
+  Name: "\u30AB\u30F3\u30AC\u30ED\u30A6"
+  HPmax: 60
+  TPmax: 100
+  AttackP: 6
+  DefenceP: 3
+  SpeedP: 10
+  image: {fileID: 21300000, guid: ad18e24b7f10cd945ba18d5d42bc1b22, type: 3}
+  Para: 3c0000006400000006000000030000000a000000

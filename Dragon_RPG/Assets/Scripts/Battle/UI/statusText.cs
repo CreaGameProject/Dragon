@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextDra : MonoBehaviour {
+public class statusText : MonoBehaviour {
 
     [SerializeField] Text textS;
     [SerializeField] Text text2;
