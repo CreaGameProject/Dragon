@@ -119,7 +119,7 @@ public class BattleMain : MonoBehaviour
                 status[countE + 2, countS] = enemyStatus[countE][countS];
             }
 
-            status[countE + 2, statusNum] = 0;    //敵のposition
+            status[countE + 2, statusNum] = countE;    //敵のposition
 
         }
     }
@@ -171,8 +171,6 @@ public class BattleMain : MonoBehaviour
         if (totalEnemy == 0)
         {
             // 戦闘終了（勝ち）のやつ
-            Debug.Log("Win");
-
             text.words.Add("勝ったよ～～～（＿＋＿）");
         }
     }
