@@ -122,27 +122,27 @@ public class BattleMain : MonoBehaviour
             status[countE + 2, statusNum] = countE;    //敵のposition
 
         }
-    }
+    }　　//各キャラのステータスを格納
 
     public int sendPlay()
     {
         return playF;
-    }
+    } //別のプログラムに送る用
 
     public int sendSelect()
     {
         return selectF;
-    }
+    }　　　//別のプログラムに送る用
 
     public int sendActionSelect()
     {
         return actionSelect;
-    }
+    }　　　//別のプログラムに送る用
 
     public string sendActiveChara()
     {
         return names[activeChara];
-    }
+    }　　　//別のプログラムに送る用
 
 
     // Update is called once per frame
@@ -173,7 +173,7 @@ public class BattleMain : MonoBehaviour
             // 戦闘終了（勝ち）のやつ
             text.words.Add("勝ったよ～～～（＿＋＿）");
         }
-    }
+    }　//バトル終了チェック
 
     void DeadCheck()
     {
@@ -216,14 +216,14 @@ public class BattleMain : MonoBehaviour
 
         enemyMin = min;
 
-    }
+    } //死んだか判定
 
     IEnumerator objectDelete(int objectNum)
     {
         yield return new WaitForSeconds(2f);
         enemyDate.enemyObjects[objectNum].SetActive(false);
 
-    }
+    }　//死んだ敵を画面から消す
 
     void TimeCharge()
     {
@@ -265,7 +265,7 @@ public class BattleMain : MonoBehaviour
 
             }
         }
-    }
+    }　 //各キャラの待機時間をためる
 
     void turnStart()
     {
@@ -277,7 +277,7 @@ public class BattleMain : MonoBehaviour
             playTurn.RemoveAt(0);
             
         }
-    }
+    }　　//playTurnに入ってる行動を呼ぶ
     
     void buttonSelect()
     {
@@ -377,7 +377,7 @@ public class BattleMain : MonoBehaviour
         }
 
 
-    }
+    }  //ボタンによる行動選択
 
     void actionSet(int charaNum)
     {
@@ -474,7 +474,7 @@ public class BattleMain : MonoBehaviour
 
         }
 
-    }
+    }   //エンターキーで行動選択を終了した時　選択に応じて行動をplayTurn(List)に Add
 
     IEnumerator enemyActionSet(int actionEnemy)
     {
@@ -524,9 +524,9 @@ public class BattleMain : MonoBehaviour
             }
         }
 
-    }
+    }  //actionSetの敵版
 
-    //通常攻撃の処理　　引数は　攻撃するやつの番号 と　攻撃を受けるやつの番号（charaSelectのやつ）
+    //通常攻撃の処理(Setで入れる行動の中身)　　引数は　攻撃するやつの番号 と　攻撃を受けるやつの番号
     IEnumerator Attack(int Attacker, int target)
     {
         if (alives[Attacker] == true) {
@@ -592,7 +592,7 @@ public class BattleMain : MonoBehaviour
 
         StartCoroutine(waitPlay(giver));
 
-    }
+    }　//味方の待機時間を短縮するやつ
 
     IEnumerator Escape(int Escaper)
     {
@@ -637,6 +637,8 @@ public class BattleMain : MonoBehaviour
         }
     }
 
+    //
+
     IEnumerator waitPlay(int actioner)
     {
         times[actioner] = 0;
@@ -651,7 +653,7 @@ public class BattleMain : MonoBehaviour
         playF = 0;
 
         Debug.Log("waitEnd");
-    }
+    }　　//各行動の間のインターバル
 
     IEnumerator waitTurn()
     {
