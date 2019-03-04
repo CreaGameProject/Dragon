@@ -238,11 +238,11 @@ public class BattleMain : MonoBehaviour
             {
                 times[count] = timeChargeMax;
 
-                if (activeFs[count] == 0 && playF != 1 )
+                if (activeFs[count] == 0 && playF != 1 )//　個人の行動と全体での行動ができない
                 {
-                    if (selectF == 0)
+                    if (selectF == 0)  //　行動選択可能でない場合　　ということ
                     {
-                        if (count < 2)
+                        if (count < 2)　//主人公と姫用
                         {
                             Debug.Log("time" + count + "OK");
                             activeFs[count] = 1;
@@ -250,12 +250,11 @@ public class BattleMain : MonoBehaviour
                             selectF = 1;
                             activeChara = count;
 
-                            //text.words.Add(names[count]+"の行動可能");
                         }
                     }
 
 
-                    if (count >= 2)
+                    if (count >= 2)　//敵キャラ用　   
                     {
                         activeFs[count] = 1;
 
