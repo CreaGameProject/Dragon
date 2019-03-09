@@ -22,7 +22,7 @@ public class BattleMain : MonoBehaviour
     List<action> playTurn = new List<action>();
     int playF = 0; //0行動開始可能　１行動中　２行動受付開始
 
-    int selectF = 0 ; // 0=全ての選択無理  １= 行動選択 2=ターゲット選択　
+    int selectF = 0 ; // 0=全ての選択無理  １= 行動選択 2= スキル選択　3=ターゲット選択　
 
     int[] activeFs; //(個人用)　0無理　１行動可能　２行動待機
     bool[] alives;
@@ -48,7 +48,7 @@ public class BattleMain : MonoBehaviour
     public int[,] status;//  ステータスの入れ物 // 左キャラ  //右　HP TP A D S Pos 
     int activeChara = 0;//行動キャラ　0 = dragon, 1 = Princes ,2以降　＝敵
     int targetSelect = 2;//選択　上に同じ
-    int actionSelect = 0;//選択肢上から０. １．２．３．を選択中　攻　防　魔　逃
+    int actionSelect = 0;//選択肢上から０. １．２．３．を選択中　攻　技　交　逃
 
     
     // Use this for initialization
@@ -136,13 +136,43 @@ public class BattleMain : MonoBehaviour
 
     public int sendActionSelect()
     {
-        return actionSelect;
+        switch (selectF)
+        {
+            case 0:
+                return actionSelect;
+                break;
+
+            case 1:  //行動選択時
+                return actionSelect;
+                break;
+
+            case 2:  //スキル時
+                return actionSelect;
+                break;
+
+            case 3:　//たいしょう時
+                return targetSelect-2;
+                break;
+
+            default:
+                return actionSelect;
+                break;
+
+        }
+
+
+        
     }　　　//別のプログラムに送る用
 
     public string sendActiveChara()
     {
         return names[activeChara];
     }　　　//別のプログラムに送る用
+
+    public float sendTimeChargeMax()
+    {
+        return timeChargeMax;
+    }     //別のプログラムに送る用
 
 
     // Update is called once per frame
@@ -281,7 +311,7 @@ public class BattleMain : MonoBehaviour
     
     void buttonSelect()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && selectF == 2)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && selectF == 3)
         {
             targetSelect++;
 
@@ -296,7 +326,7 @@ public class BattleMain : MonoBehaviour
 
             Debug.Log(targetSelect + "C");
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) && selectF == 2)
+        else if (Input.GetKeyDown(KeyCode.UpArrow) && selectF == 3)
         {
             targetSelect--;
 
@@ -316,11 +346,20 @@ public class BattleMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             
-            if(selectF >1){
+            if(selectF ==2){
 
                 selectF--;
 
             }
+            else if (selectF == 3 && actionSelect == 0)
+            {
+                selectF = 1;
+            }
+            else if (selectF ==3 && actionSelect ==1)
+            {
+
+            }
+
 
         }
 
@@ -395,7 +434,7 @@ public class BattleMain : MonoBehaviour
                         text.words.Add("相手を選択");
 
                         targetSelect = enemyMin;
-                        selectF = 2;
+                        selectF = 3;
 
                         break;
                     }

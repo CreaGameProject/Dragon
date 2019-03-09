@@ -20,6 +20,9 @@ public class slider : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        rSlider.maxValue = battleMain.sendTimeChargeMax();
+        lSlider.maxValue = battleMain.sendTimeChargeMax();
+
         rSlider.value = battleMain.times[0];
         lSlider.value = battleMain.times[1];
 		

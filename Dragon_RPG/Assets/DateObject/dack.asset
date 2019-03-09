@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83136823c80357e489b1d1b681d45d60, type: 3}
   m_Name: dack
   m_EditorClassIdentifier: 
-  Name: "\u30CE\u30E9\u30A4\u30ED\u30C0\u30C3\u30AF"
+  Name: "\u30CE\u30E9\u30C0\u30C3\u30AF"
   HPmax: 110
   TPmax: 20
   AttackP: 30
